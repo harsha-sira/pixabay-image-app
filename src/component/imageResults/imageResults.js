@@ -1,12 +1,21 @@
 import React, { Component } from "react";
-import { GridList, GridTile, IconButton } from "material-ui";
+import { GridList, GridTile, IconButton, Dialog } from "material-ui";
 import PropTypes from "prop-types";
 import ZoomIn from "material-ui/svg-icons/action/zoom-in";
+import FlatButton from "material-ui/FlatButton";
 
 class ImageResults extends Component {
   state = {
     open: false,
     currentImg: ""
+  };
+
+  handleOpen = img => {
+    this.setState({ open: true, currentImg: img });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   render() {
@@ -26,8 +35,8 @@ class ImageResults extends Component {
                 </span>
               }
               actionIcon={
-                <IconButton>
-                  <ZoomIn color="black" />
+                <IconButton onClick={() => this.handleOpen(img)}>
+                  <ZoomIn color="white" />
                 </IconButton>
               }
             >
@@ -40,7 +49,24 @@ class ImageResults extends Component {
       imageListContent = null;
     }
 
-    return <div>{imageListContent}</div>;
+    const action = [
+      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />
+    ];
+
+    return (
+      <div>
+        {imageListContent}
+        <Dialog
+          title={this.state.currentImg.tags}
+          actions={action}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          <img src={this.state.currentImg.largeImageURL} alt="" style={{ width : '100%' }}/>
+        </Dialog>
+      </div>
+    );
   }
 }
 
