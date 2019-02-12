@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { GridList, GridTile, IconButton, Dialog } from "material-ui";
-import PropTypes from "prop-types";
 import ZoomIn from "material-ui/svg-icons/action/zoom-in";
 import FlatButton from "material-ui/FlatButton";
 
@@ -69,9 +68,5 @@ class ImageResults extends Component {
     );
   }
 }
-
-ImageResults.propTypes = {
-  images: PropTypes.array.required
-};
 
 export default ImageResults;
